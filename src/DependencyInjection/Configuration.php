@@ -1,0 +1,60 @@
+<?php
+
+namespace Aropixel\BlogBundle\DependencyInjection;
+
+use Aropixel\BlogBundle\Entity\Post;
+use Aropixel\BlogBundle\Entity\PostCategory;
+use Aropixel\BlogBundle\Entity\PostCategoryInterface;
+use Aropixel\BlogBundle\Entity\PostCategoryTranslation;
+use Aropixel\BlogBundle\Entity\PostCategoryTranslationInterface;
+use Aropixel\BlogBundle\Entity\PostInterface;
+use Aropixel\BlogBundle\Entity\PostTranslation;
+use Aropixel\BlogBundle\Entity\PostTranslationInterface;
+use Aropixel\BlogBundle\Form\PostTranslatableType;
+use Aropixel\BlogBundle\Form\PostType;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
+
+/**
+ * This is the class that validates and merges configuration from your app/config files.
+ *
+ * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/configuration.html}
+ */
+class Configuration implements ConfigurationInterface
+{
+    public function getConfigTreeBuilder(): TreeBuilder
+    {
+        $treeBuilder = new TreeBuilder('aropixel_blog');
+        $rootNode = $treeBuilder->getRootNode();
+        /* @var \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition $rootNode */
+        $rootNode
+            ->children()
+            ->scalarNode('categories')
+            ->defaultValue('none')
+            ->end()
+            ->arrayNode('forms')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->scalarNode('post')->defaultValue(PostType::class)->end()
+            ->scalarNode('post_translatable')->defaultValue(PostTranslatableType::class)->end()
+            ->end()
+            ->end()
+            ->arrayNode('entities')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->scalarNode(PostInterface::class)->defaultValue(Post::class)->end()
+            ->scalarNode(PostTranslationInterface::class)->defaultValue(PostTranslation::class)->end()
+            ->scalarNode(PostCategoryInterface::class)->defaultValue(PostCategory::class)->end()
+            ->scalarNode(PostCategoryTranslationInterface::class)->defaultValue(PostCategoryTranslation::class)->end()
+            ->end()
+            ->end()
+            ->end()
+        ;
+
+        // Here you should define the parameters that are allowed to
+        // configure your bundle. See the documentation linked above for
+        // more information on that topic.
+
+        return $treeBuilder;
+    }
+}

@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Aropixel\BlogBundle\:
+    resource: '../../*'
+    exclude: '../../{DependencyInjection,Entity,Migrations,Resources,Tests}'
+
+  Aropixel\BlogBundle\Repository\PostRepository:
+    tags:
+      - { name: doctrine.repository_service }
+
