@@ -91,11 +91,7 @@
       </trans-unit>
       <trans-unit id="7lAsh4C" resname="categories.form.header.title">
         <source>categories.form.header.title</source>
-        <target>{edit, select,
-          true    {Catégories - Modifier une catégorie}
-          false   {Catégories - Ajouter une catégorie}
-          other   {Catégories}
-          }</target>
+        <target>Catégories</target>
       </trans-unit>
       <trans-unit id="OtJJHgs" resname="breadcrumb.categories">
         <source>breadcrumb.categories</source>
